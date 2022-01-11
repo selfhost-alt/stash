@@ -36,12 +36,12 @@ func (t *GeneratePhashTask) Start(ctx context.Context) {
 	generator, err := NewPhashGenerator(*videoFile, sceneHash)
 
 	if err != nil {
-		logger.Errorf("error creating phash generator: %s", err.Error())
+		logger.Errorf("error creating phash generator for scene %s: %s", t.Scene.Path, err.Error())
 		return
 	}
 	hash, err := generator.Generate()
 	if err != nil {
-		logger.Errorf("error generating phash: %s", err.Error())
+		logger.Errorf("error generating phash for scene %s: %s", t.Scene.Path, err.Error())
 		return
 	}
 

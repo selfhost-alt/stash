@@ -68,18 +68,18 @@ func (t *GenerateScreenshotTask) Start(ctx context.Context) {
 		}
 
 		if err := scene.SetScreenshot(instance.Paths, checksum, coverImageData); err != nil {
-			return fmt.Errorf("error writing screenshot: %v", err)
+			return fmt.Errorf("error writing screenshot for scene %s: %v", scenePath, err)
 		}
 
 		// update the scene cover table
 		if err := qb.UpdateCover(t.Scene.ID, coverImageData); err != nil {
-			return fmt.Errorf("error setting screenshot: %v", err)
+			return fmt.Errorf("error setting screenshot for scene %s: %v", scenePath, err)
 		}
 
 		// update the scene with the update date
 		_, err = qb.Update(updatedScene)
 		if err != nil {
-			return fmt.Errorf("error updating scene: %v", err)
+			return fmt.Errorf("error updating scene %s: %v", scenePath, err)
 		}
 
 		return nil

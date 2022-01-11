@@ -37,13 +37,13 @@ func (t *GenerateSpriteTask) Start(ctx context.Context) {
 	generator, err := NewSpriteGenerator(*videoFile, sceneHash, imagePath, vttPath, 9, 9)
 
 	if err != nil {
-		logger.Errorf("error creating sprite generator: %s", err.Error())
+		logger.Errorf("error creating sprite generator for scene %s: %s", t.Scene.Path, err.Error())
 		return
 	}
 	generator.Overwrite = t.Overwrite
 
 	if err := generator.Generate(); err != nil {
-		logger.Errorf("error generating sprite: %s", err.Error())
+		logger.Errorf("error generating sprite for scene %s: %s", t.Scene.Path, err.Error())
 		return
 	}
 }

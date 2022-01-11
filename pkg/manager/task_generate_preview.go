@@ -36,7 +36,7 @@ func (t *GeneratePreviewTask) Start(ctx context.Context) {
 	ffprobe := instance.FFProbe
 	videoFile, err := ffprobe.NewVideoFile(t.Scene.Path, false)
 	if err != nil {
-		logger.Errorf("error reading video file: %s", err.Error())
+		logger.Errorf("error reading video file %s: %s", t.Scene.Path, err.Error())
 		return
 	}
 
@@ -57,7 +57,7 @@ func (t *GeneratePreviewTask) Start(ctx context.Context) {
 	generator.Info.Audio = config.GetInstance().GetPreviewAudio()
 
 	if err := generator.Generate(); err != nil {
-		logger.Errorf("error generating preview: %s", err.Error())
+		logger.Errorf("error generating preview for scene %s: %s", t.Scene.Path, err.Error())
 		return
 	}
 }
